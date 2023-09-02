@@ -2,7 +2,7 @@
 <lhs>:=<operand>|<minus><operand>|<operand><operation><operand>
 <operand>:=<number>|<var>
 <number>:=<integer>|<integer><decimal><integer>
-<var>:=<letter>{<var>}
+<var>:=<letter>{<var>}|<letter><integer>
 <integer>:=<numeral>{<integer>}
 <numeral>:=0|1|2|3|4|5|6|7|8|9
 <operation>:=+|-|*|/|^

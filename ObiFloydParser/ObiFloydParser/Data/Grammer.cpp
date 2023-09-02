@@ -61,6 +61,15 @@ std::string Grammer::GetParseString(std::string text, bool verbose)
     return result;
 }
 
+void Grammer::Cleanup()
+{
+    if (head)
+    {
+        head->Dispose();
+        delete head;
+    }
+}
+
 std::string Grammer::GetParseStructure()
 {
     return GetParseStructure(head, 0);
@@ -88,61 +97,6 @@ std::string Grammer::GetParseStructure(Token* token, int depth)
                 text = text + GetParseStructure(sibling, depth + 1);
             }
             text = text + space + Utility::Replace(token->Title, "<", "</") + "\n";
-        }
-    }
-
-    return text;
-}
-
-std::string Grammer::GetGrammerFileStructure()
-{
-    std::map<std::string, Token*> descendants = std::map<std::string, Token*>();
-    return GetGrammerFileStructure(head, 0, descendants);
-}
-
-void Grammer::Cleanup()
-{
-    if (head)
-    {
-        head->Dispose();
-        delete head;
-    }
-}
-
-std::string Grammer::GetGrammerFileStructure(Token* token, int depth, std::map<std::string, Token*>& descendants)
-{
-    std::string text = "";
-
-    std::map<std::string, Token*> temp;
-
-    if (descendants.find(token->Title) == descendants.end())
-    {
-        descendants.emplace(token->Title, token);
-
-        if (token->Children.size() > 0)
-            text = "\n" + token->Title + ":=";
-
-        for (size_t j = 0; j < token->Children.size(); j++)
-        {
-            std::vector<Token*> siblings = token->Children[j]->GetSiblings();
-
-            for (Token* sibling : siblings)
-            {
-                text = text + sibling->Title;
-
-                if (temp.find(sibling->Title) == temp.end())
-                {
-                    temp.emplace(sibling->Title, sibling);
-                }
-            }
-
-            if (j < token->Children.size() - 1)
-                text = text + "|";
-        }
-
-        for (std::map<std::string, Token*>::iterator it = temp.begin(); it != temp.end(); ++it)
-        {
-            text = text + GetGrammerFileStructure(it->second, depth + 1, descendants);
         }
     }
 

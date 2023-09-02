@@ -21,12 +21,10 @@ public:
 	static ParseResult ParseText(std::string);
 	static std::string GetParseString(std::string, bool);
 	static std::string GetParseStructure();
-	static std::string GetGrammerFileStructure();
 	static void Cleanup();
 
 private:
 	static std::string GetParseStructure(Token*, int);
-	static std::string GetGrammerFileStructure(Token*, int, std::map<std::string, Token*>&);
 	static ParseResult ParseText(std::string, Token*, Token*, ParseResult);
 	static void SetSiblingsChildren(Token*);
 	static void AddRepeatSibling(Token*, size_t);
