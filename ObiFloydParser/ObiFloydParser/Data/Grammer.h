@@ -27,7 +27,7 @@ public:
 private:
 	static std::string GetParseStructure(Token*, int);
 	static std::string GetGrammerFileStructure(Token*, int, std::map<std::string, Token*>&);
-	static ParseResult ParseText(std::string, Token*, Token*, ParseResult, std::map<std::string, int>);
+	static ParseResult ParseText(std::string, Token*, Token*, ParseResult);
 	static void SetSiblingsChildren(Token*);
 	static void AddRepeatSibling(Token*, size_t);
 };
