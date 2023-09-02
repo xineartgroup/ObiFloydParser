@@ -6,8 +6,8 @@ Token::Token()
 	ID = Utility::NewID();
 	Title = "";
 	Value = "";
-	Sibling = NULL;
-	Alternate = NULL;
+	Sibling = nullptr;
+	Alternate = nullptr;
 	Selection = -1;
 	Repeat = false;
 }
@@ -17,8 +17,8 @@ Token::Token(std::string title, std::string value)
 	ID = Utility::NewID();
 	Title = title;
 	Value = value;
-	Sibling = NULL;
-	Alternate = NULL;
+	Sibling = nullptr;
+	Alternate = nullptr;
 	Selection = -1;
 	Repeat = false;
 }
@@ -28,8 +28,8 @@ Token::Token(std::string title, std::string value, int selection)
 	ID = Utility::NewID();
 	Title = title;
 	Value = value;
-	Sibling = NULL;
-	Alternate = NULL;
+	Sibling = nullptr;
+	Alternate = nullptr;
 	Selection = selection;
 	Repeat = false;
 }
@@ -51,8 +51,8 @@ Token::Token(Token* token)
 	{
 		Title = "";
 		Value = "";
-		Sibling = NULL;
-		Alternate = NULL;
+		Sibling = nullptr;
+		Alternate = nullptr;
 		Selection = -1;
 		Repeat = false;
 	}
@@ -73,7 +73,7 @@ Token::Token(std::string title, bool encase)
 	}
 	Title = title;
 	Value = "";
-	Sibling = NULL;
+	Sibling = nullptr;
 	Selection = -1;
 	Repeat = false;
 }
@@ -85,7 +85,7 @@ Token::Token(std::vector<std::string> siblings)
 	{
 		Title = "";
 		Value = "";
-		Sibling = NULL;
+		Sibling = nullptr;
 		Selection = -1;
 		Repeat = false;
 	}
@@ -184,7 +184,7 @@ Token* Token::GetSiblingCopy(Token* token)
 		return siblings[0];
 	}
 
-	return NULL;
+	return nullptr;
 }
 
 std::vector<Token*> Token::GetChildrenCopy(Token* token)

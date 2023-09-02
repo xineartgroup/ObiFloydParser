@@ -9,7 +9,7 @@
 std::string getExecutablePath()
 {
     char rawPathName[MAX_PATH];
-    GetModuleFileNameA(NULL, rawPathName, MAX_PATH);
+    GetModuleFileNameA(nullptr, rawPathName, MAX_PATH);
     std::string executableFile(rawPathName);
 
     size_t count = executableFile.size();
