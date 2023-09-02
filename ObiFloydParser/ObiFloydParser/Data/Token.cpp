@@ -1,5 +1,4 @@
 #include "Token.h"
-#include "Utility.h"
 
 Token::Token()
 {
@@ -23,54 +22,15 @@ Token::Token(std::string title, std::string value)
 	Repeat = false;
 }
 
-Token::Token(std::string title, std::string value, int selection)
-{
-	ID = Utility::NewID();
-	Title = title;
-	Value = value;
-	Sibling = nullptr;
-	Alternate = nullptr;
-	Selection = selection;
-	Repeat = false;
-}
-
-Token::Token(Token* token)
-{
-	ID = Utility::NewID();
-	if (token)
-	{
-		Title = token->Title;
-		Value = token->Value;
-		Sibling = GetSiblingCopy(token->Sibling);
-		Alternate = GetSiblingCopy(token->Alternate);
-		Selection = token->Selection;
-		Repeat = token->Repeat;
-		Children = GetChildrenCopy(token);
-	}
-	else
-	{
-		Title = "";
-		Value = "";
-		Sibling = nullptr;
-		Alternate = nullptr;
-		Selection = -1;
-		Repeat = false;
-	}
-}
-
 Token::Token(std::string title, bool encase)
 {
 	ID = Utility::NewID();
-	if (encase)
-	{
-		if (title.size() > 0)
-		{
-			if (title[0] != '<')
-				title = '<' + title;
-			if (title[title.size() - 1] != '>')
-				title = title + '>';
-		}
-	}
+
+	if (encase && title.size() > 0 && title[0] != '<')
+		title = '<' + title;
+	if (encase && title.size() > 0 && title[title.size() - 1] != '>')
+		title = title + '>';
+
 	Title = title;
 	Value = "";
 	Sibling = nullptr;
@@ -140,7 +100,6 @@ std::vector<Token*> Token::GetSiblings()
 	std::vector<Token*> result;
 
 	result.push_back(this);
-
 	Token* sibling = this->Sibling;
 
 	while (sibling)
@@ -157,42 +116,4 @@ std::string Token::ToString()
 	if (Sibling)
 		return Title + Sibling->ToString();
 	return Title;
-}
-
-Token* Token::GetSiblingCopy(Token* token)
-{
-	if (token)
-	{
-		std::vector<Token*> siblings;
-
-		Token* sibling = token;
-
-		while (sibling)
-		{
-			siblings.push_back(new Token(sibling));
-			sibling = sibling->Sibling;
-		}
-
-		size_t position = siblings.size() - 1;
-
-		while (position > 0)
-		{
-			siblings[position - 1]->Sibling = siblings[position];
-			position--;
-		}
-
-		return siblings[0];
-	}
-
-	return nullptr;
-}
-
-std::vector<Token*> Token::GetChildrenCopy(Token* token)
-{
-	std::vector<Token*> children;
-	for (size_t i = 0; i < token->Children.size(); i++)
-	{
-		children.push_back(new Token(token->Children[i]));
-	}
-	return children;
 }

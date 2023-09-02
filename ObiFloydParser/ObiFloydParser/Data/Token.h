@@ -1,7 +1,6 @@
 #pragma once
 
-#include <string>
-#include <vector>
+#include "Utility.h"
 
 class Token
 {
@@ -17,8 +16,6 @@ public:
 
 	Token();
 	Token(std::string, std::string);
-	Token(std::string, std::string, int);
-	Token(Token*);
 	Token(std::string, bool);
 	Token(std::vector<std::string>);
 	~Token();
@@ -27,7 +24,5 @@ public:
 
 	std::vector<Token*> GetSiblings();
 	std::string ToString();
-	static Token* GetSiblingCopy(Token*);
-	static std::vector<Token*> GetChildrenCopy(Token*);
 };
 
