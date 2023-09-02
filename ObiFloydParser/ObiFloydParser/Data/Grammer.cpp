@@ -5,6 +5,15 @@ size_t  Grammer::furthest = 0;
 std::string Grammer::expected;
 std::vector<std::string> Grammer::lines;
 
+void Grammer::Cleanup()
+{
+    if (head)
+    {
+        head->Dispose();
+        delete head;
+    }
+}
+
 void Grammer::ReadGrammer(std::string text)
 {
     std::istringstream f(text);
@@ -59,15 +68,6 @@ std::string Grammer::GetParseString(std::string text, bool verbose)
     }
 
     return result;
-}
-
-void Grammer::Cleanup()
-{
-    if (head)
-    {
-        head->Dispose();
-        delete head;
-    }
 }
 
 std::string Grammer::GetParseStructure()

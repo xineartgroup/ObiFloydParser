@@ -1,5 +1,4 @@
 #include "Token.h"
-#include "Utility.h"
 
 Token::Token()
 {
@@ -26,16 +25,12 @@ Token::Token(std::string title, std::string value)
 Token::Token(std::string title, bool encase)
 {
 	ID = Utility::NewID();
-	if (encase)
-	{
-		if (title.size() > 0)
-		{
-			if (title[0] != '<')
-				title = '<' + title;
-			if (title[title.size() - 1] != '>')
-				title = title + '>';
-		}
-	}
+
+	if (encase && title.size() > 0 && title[0] != '<')
+		title = '<' + title;
+	if (encase && title.size() > 0 && title[title.size() - 1] != '>')
+		title = title + '>';
+
 	Title = title;
 	Value = "";
 	Sibling = nullptr;
@@ -105,7 +100,6 @@ std::vector<Token*> Token::GetSiblings()
 	std::vector<Token*> result;
 
 	result.push_back(this);
-
 	Token* sibling = this->Sibling;
 
 	while (sibling)
